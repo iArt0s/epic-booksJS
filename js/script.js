@@ -14,7 +14,7 @@ ready(function(){
   // Кастомные селекты (кроме выбора языка)
 
 
-
+//burger
 
 
 
@@ -27,7 +27,31 @@ burger.addEventListener('click', (e) => {
   burger.classList.toggle('burger--close');
 });
 
+//slider
 
+  var mySwiper = new Swiper ('.swiper-container', {
+    // Optional parameters
+    // direction: 'vertical',
+    loop: true,
+    slidesPerView: 4,
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.popular__slider-btn--right',
+      prevEl: '.popular__slider-btn--left',
+    },
+
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+  })
+
+//filter
 
 function filter() {
     let findfilter = document.querySelector('#filters-trigger');
@@ -40,10 +64,11 @@ function filter() {
       findfilter.closest('.filters').classList.toggle('filters--open');
     });
 
-
 };
 
 filter();
+
+//dataJS
 
   const template = document.querySelector('.j-article');
   const templateFragment = document.createDocumentFragment();
@@ -56,11 +81,38 @@ filter();
     bookTemplate.querySelector('.card__price').textContent = books[i].price + ' ₽';
     bookTemplate.querySelector('.card__img').src = 'img/books/' + books[i].uri + '.jpg';
 
+    // if (books[i].new === 1) {
+    //   bookTemplate.appendChild(querySelector('.card__title')).innerHTML = '<span class="card__new">new</span>';
+    // }
+
     templateFragment.appendChild(bookTemplate);
   };
 
   document.querySelector('.catalog__books-list').appendChild(templateFragment);
 
+//popup
+
+
+let cardPopup = document.querySelectorAll('.card__inner');
+for (i = 0, len = cardPopup.length; i < len; i++) {
+  cardPopup[i].onclick = function() {
+    showPopup();
+  };
+}
+
+
+function showPopup() { 
+  let showPopup = document.querySelector('.modal');
+  showPopup.classList.add('modal--open');
+  return;
+}; 
+
+let closePopup = document.querySelector('.modal__close');
+closePopup.addEventListener('click', event => {
+  
+  let close = document.querySelector('.modal--open');
+  close.classList.remove('modal--open');;
+});
 
 
   new Choices('.field-select:not(#lang) select.field-select__select', {
@@ -90,6 +142,7 @@ filter();
       };
     }
   });
+  
   function getLangInSelectIcon(value) {
     if (value == 'ru') return '<span class="field-select__lang-ru"></span>';
     else if (value == 'en') return '<span class="field-select__lang-en"></span>';

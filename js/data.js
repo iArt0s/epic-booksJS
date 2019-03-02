@@ -4,7 +4,8 @@ const books = [
     "desc":"",
     "price":697,
     "uri":"klienty-na-vsyu-zhizn",
-    "type":"marketing"
+    "type":"marketing",
+    "new": 1
   },
   {
     "name":"Ценные решения",
