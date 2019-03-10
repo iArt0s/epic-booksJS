@@ -4,6 +4,20 @@ ready(function(){
 
 
 
+function queryParent(element, parentSelector) {
+  var parents = document.querySelectorAll(parentSelector);
+
+  for (var i = 0; i < parents.length; i++) {
+    var parent = parents[i];
+
+    if (parent.contains(element)) {
+      return parent;
+    }
+  }
+
+  return null;
+}
+
 
   // ВНИМАНИЕ!
   // Нижеследующий код (кастомный селект и выбор диапазона цены) работает
@@ -78,8 +92,9 @@ filter();
     const bookTemplate = template.content.cloneNode(true);
 
     bookTemplate.querySelector('.card__title').textContent = books[i].name;
-    bookTemplate.querySelector('.card__price').textContent = books[i].price + ' ₽';
-    bookTemplate.querySelector('.card__img').src = 'img/books/' + books[i].uri + '.jpg';
+    bookTemplate.querySelector('.card__price').textContent = (books[i].price/100) + ' ₽';
+    bookTemplate.querySelector('.card__img').src = 'https://books.marinintim.com' + books[i].thumb_url;
+    bookTemplate.querySelector('article').dataset.bookid = books[i].id;
 
     // if (books[i].new === 1) {
     //   bookTemplate.appendChild(querySelector('.card__title')).innerHTML = '<span class="card__new">new</span>';
@@ -94,25 +109,114 @@ filter();
 
 
 let cardPopup = document.querySelectorAll('.card__inner');
-for (i = 0, len = cardPopup.length; i < len; i++) {
-  cardPopup[i].onclick = function() {
-    showPopup();
-  };
-}
+  for (i = 0, len = cardPopup.length; i < len; i++) {
+    cardPopup[i].onclick = function() {
+      let bookArt = queryParent(this, 'article');
+      let bookid = bookArt.dataset.bookid;
+      let book = books.find(function(b) {
+        return b.id == bookid;
+      });
+      
+      document.querySelector('.product__img-wrap>img').src = 'https://books.marinintim.com' + book.thumb_url;
+      document.querySelector('.product__title').innerHTML = book.name;
+      document.querySelector('.rating__review').innerHTML = ' ';
 
-
-function showPopup() { 
-  let showPopup = document.querySelector('.modal');
-  showPopup.classList.add('modal--open');
-  return;
-}; 
-
-let closePopup = document.querySelector('.modal__close');
-closePopup.addEventListener('click', event => {
+      let tableInfo = document.querySelector('.product__table-info');
+      var tds = tableInfo.getElementsByTagName('td');
+      for (let tdindex = 0; tdindex < tds.length; tdindex++) {
+        const td = tds[tdindex];
+        td.innerHTML = ' ';
+      }
   
-  let close = document.querySelector('.modal--open');
-  close.classList.remove('modal--open');;
+      document.querySelector('.product__descr>p').innerHTML = book.desc;
+      document.querySelector('.btn__sm-price').innerHTML = (book.price/100);
+
+      showPopup(book);
+    };
+  }
+
+  
+
+  let popupLayer = document.querySelector('.js');
+  function showPopup() {  
+    let showPopup = document.querySelector('.modal');
+
+    showPopup.classList.add('modal--open');
+    popupLayer.classList.add('js-modal-open');
+  }; 
+
+  
+  function closePopup() {
+    let closePopup = document.querySelector('.modal--open');
+
+    closePopup.classList.remove('modal--open');
+    popupLayer.classList.remove('js-modal-open');
+  };
+
+  let btnClosePopup = document.querySelector('.modal__close');
+  btnClosePopup.addEventListener('click', event => { 
+    
+    closePopup();
+  });
+
+ 
+  var page = document.querySelector(".modal");
+  page.addEventListener('click', event => {
+    var popUp = document.querySelector(".modal__dialog");
+    var isInPopUp = popUp.contains(event.srcElement) || popUp == event.srcElement;
+    if(!isInPopUp){
+      event.preventDefault(); 
+        
+      closePopup();
+    }; 
+  });
+  
+
+
+
+//cart
+
+let cardBtn = document.querySelectorAll('.btn');
+
+
+cardBtn.forEach(function(btn){
+
+btn.addEventListener("click" , function(e){
+console.log(e.target.parentNode);
+
+
+})
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   new Choices('.field-select:not(#lang) select.field-select__select', {
@@ -142,7 +246,7 @@ closePopup.addEventListener('click', event => {
       };
     }
   });
-  
+
   function getLangInSelectIcon(value) {
     if (value == 'ru') return '<span class="field-select__lang-ru"></span>';
     else if (value == 'en') return '<span class="field-select__lang-en"></span>';
