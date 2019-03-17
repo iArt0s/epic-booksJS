@@ -102,7 +102,7 @@
               <svg width="24" height="24">
                 <use xlink:href="#cart"></use>
               </svg>
-              <span class="page-header__cart-num">7</span>
+              <span class="page-header__cart-num"></span>
             </a>
             <div class="user-auth page-header__user-auth">
               <img class="user-auth__avatar" src="img/demo-avatar-m.png" alt="Антон Павлов" width="34" height="34"/>
@@ -275,7 +275,7 @@
           <div class="catalog__inner">
             <h1 class="catalog__title">Каталог книг</h1>
             <div class="catalog__books-list">
-              <template class="j-article">
+              <template class="j-article" id="card-template">
               <article class="card">
                 <a class="card__inner" href="index.html#klienty-na-vsyu-zhizn">
                   <img class="card__img" src="img/klienty-na-vsyu-zhizn.jpg" width="148" height="208" alt="Клиенты на всю жизнь"/>
@@ -283,7 +283,7 @@
                   <span class="card__new">new</span>
                   <p class="card__price">₽</p>
                 </a>
-                <button class="btn  btn--sm card__buy">
+                <button class="btn  btn--sm card__buy j-buy">
                   <svg class="btn__icon" width="14" height="14">
                     <use xlink:href="#plus"></use>
                   </svg>
@@ -511,7 +511,7 @@
                     <h2 class="card__title">Искренний сервис</h2>
                     <p class="card__price">642 ₽</p>
                   </a>
-                  <button class="btn  btn--sm card__buy">
+                  <button class="btn  btn--sm card__buy j-buy">
                     <svg class="btn__icon" width="14" height="14">
                       <use xlink:href="#plus"></use>
                     </svg>
@@ -534,7 +534,7 @@
           </div>
         </section>
         <!-- Дописать modal--open для показа именного этого модального окна (плюс дописать на html класс js-modal-open)-->
-        <div class="modal"  id="modal-book-view" tabindex="-1" role="dialog">
+        <div class="modal js-modal-open"  id="modal-book-view" tabindex="-1" role="dialog">
           <div class="modal__dialog" role="document">
             <div class="modal__content">
               <button class="modal__close" data-dismiss="modal" aria-label="Закрыть">
@@ -571,7 +571,7 @@
                   </div>
                   <table class="product__table-info">
                     <tr>
-                      <th>Автор:</th>
+                      <th id="autor">Автор:</th>
                       <td>
                         <a href="">Девид Огилви</a>
                       </td>
@@ -590,7 +590,7 @@
                   <h3 class="product__subtitle">Описание:</h3>
                   <p>Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Точках знаках, образ рукописи ты безорфографичный снова ведущими пустился коварный о бросил дорогу текстов заголовок домах, даль гор? На берегу, лучше.</p>
                   <div class="product__actions">
-                    <button class="btn  btn--price">
+                    <button class="btn  btn--price j-buy">
                       <span class="btn__sm-price">1 042 ₽</span>
                       <span class="btn__sm-text">
                         <svg class="btn__icon" width="14" height="14">
@@ -651,12 +651,15 @@
         </footer>
       </div>
     </div>
-    <script src="js/choices.min.js"></script>
-    <script src="js/nouislider.min.js"></script> 
-    <script src="js/data.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/swiper.min.js"></script>
-    
+<script src="js/shoppingCart.js"></script>
+  <script src="js/choices.min.js"></script>
+  <script src="js/nouislider.min.js"></script>
+  <script src="js/swiper.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/filter.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/bookCard.js"></script>    
  <div class="modal__backdrop"></div>
   </body>
 </html>
