@@ -146,7 +146,7 @@ ready(function () {
   // браузера не было ошибок.
 
   // Кастомные селекты (кроме выбора языка)
-  /* new Choices('.field-select:not(#lang) select.field-select__select', {
+   new Choices('.field-select:not(#lang) select.field-select__select', {
      searchEnabled: false,
      shouldSort: false,
    });
@@ -172,7 +172,7 @@ ready(function () {
          },
        };
      }
-   });*/
+   });
 
   function getLangInSelectIcon(value) {
     if (value == 'ru') return '<span class="field-select__lang-ru"></span>';
@@ -181,7 +181,7 @@ ready(function () {
   }
 
   // Выбор диапазона цен
-  /*var slider = document.getElementById('price-range');
+  var slider = document.getElementById('price-range');
   noUiSlider.create(slider, {
     start: [400, 1000],
     connect: true,
@@ -190,7 +190,7 @@ ready(function () {
       'min': 200,
       'max': 2000
     }
-  });*/
+  });
 
 });
 
